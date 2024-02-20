@@ -110,58 +110,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const galleryViewButton = document.createElement('button');
     galleryViewButton.textContent = 'Gallery View';
     galleryViewButton.addEventListener('click', () => openModal(currentIndex, false));
+    // galleryViewButton.class('button-56');
+    galleryViewButton.className = 'button-56';
+
     document.body.appendChild(galleryViewButton);
   
     // Add the slideshow view button
     const slideshowViewButton = document.createElement('button');
     slideshowViewButton.textContent = 'Slideshow View';
     slideshowViewButton.addEventListener('click', () => openModal(currentIndex, true));
+    slideshowViewButton.className = 'button-56';
     document.body.appendChild(slideshowViewButton);
-
-
-    // Music setup
-    let myMusic; // Variable to hold the music
-    let musicLoaded = false;
-
-    // Load the music file
-    function preload() {
-        // Ensure p5.js is correctly integrated
-        if (typeof loadSound === 'function') {
-            myMusic = loadSound('assets/music.mp3'); // Adjust path as necessary
-            musicLoaded = true;
-        }
-    }
-
-    function setup() {
-        if (musicLoaded) {
-            noCanvas(); // If you're not using p5 for drawing
-
-            // Create and insert the playMusic button
-            const playMusicButton = document.createElement('button');
-            playMusicButton.textContent = 'Play Music';
-            playMusicButton.id = 'playMusic';
-            document.body.insertBefore(playMusicButton, document.body.firstChild); // Adjust placement as necessary
-
-            playMusicButton.addEventListener('click', toggleMusic);
-        }
-    }
-
-    function toggleMusic() {
-        // Check if the web audio context is suspended
-        if (getAudioContext().state === 'suspended') {
-            getAudioContext().resume();
-        }
     
-        if (myMusic.isPlaying()) {
-            myMusic.pause();
-            document.getElementById('playMusic').textContent = 'Play Music';
-        } else {
-            myMusic.loop(); // Or myMusic.play() if you don't want it to loop
-            document.getElementById('playMusic').textContent = 'Pause Music';
-        }
-    }
+    const buttonContainer = document.createElement('div');
+    buttonContainer.className = 'button-container';
+    document.body.appendChild(buttonContainer);
+    buttonContainer.appendChild(galleryViewButton);
+    buttonContainer.appendChild(slideshowViewButton);
 
-    // Ensure preload and setup are called
     preload();
     setup();
   });
