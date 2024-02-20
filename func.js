@@ -28,7 +28,7 @@ function setup() {
 }
 
 function toggleBackground() {
-  backgroundImage = (backgroundImage === 'background.webp') ? 'background2.webp' : 'background.webp';
+  backgroundImage = (backgroundImage === 'day.jpg') ? 'back1.jpg' : 'day.jpg';
   document.body.style.backgroundImage = `url('assets/${backgroundImage}')`;
 }
 

@@ -45,7 +45,7 @@ img {
 
 
 body {
-  background-image: url('assets/background.webp');
+  background-image: url('assets/day.jpg');
   background-size: cover; /* Cover the entire page */
   background-position: center; /* Center the background image */
   background-attachment: fixed; /* Optional: Fix the background image during scroll */
