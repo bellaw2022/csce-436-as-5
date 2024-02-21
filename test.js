@@ -12,7 +12,7 @@ function setup() {
   playButton.class('button-56');
   playButton.mousePressed(toggleMusic);
   playButton.style('position', 'absolute');
-  playButton.style('bottom', '20px'); // Example adjustment
+  playButton.style('bottom', '20px'); 
   playButton.style('left', '20px');
 }
 
