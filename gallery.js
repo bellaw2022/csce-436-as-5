@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
       'assets/dog8.jpeg'
     ];
   
-    // Shuffle the images
     function shuffleImages() {
       for (let i = images.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -20,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
       populateGallery();
     }
   
-    // Populate gallery with images
     function populateGallery() {
       gallery.innerHTML = ''; // Clear the gallery first
       images.forEach((src, index) => {
@@ -34,7 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   
-    // Call populateGallery to display images initially
     populateGallery();
   
     // Modal view setup
@@ -93,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   
-    // Start slideshow function
     function startSlideshow() {
       slideshowInterval = setInterval(() => {
         currentIndex = (currentIndex + 1) % images.length;
@@ -101,14 +97,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 3000);
     }
   
-    // Stop slideshow function
     function stopSlideshow() {
       clearInterval(slideshowInterval);
       slideshowInterval = null;
       openModal(currentIndex, false);
     }
   
-    // Keyboard navigation function
     document.addEventListener('keydown', (event) => {
       if (modal.style.display === 'block') {
         if (event.key === 'ArrowRight') {
@@ -148,9 +142,6 @@ document.addEventListener('DOMContentLoaded', () => {
     buttonContainer.appendChild(slideshowViewButton);
     buttonContainer.appendChild(shuffleButton);
 
-  
-    // Your existing code from preload and setup functions
-    // Make sure these functions are defined or remove these calls if not needed
     preload();
     setup();
   });
