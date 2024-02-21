@@ -20,11 +20,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   
     function populateGallery() {
-      gallery.innerHTML = ''; // Clear the gallery first
+      gallery.innerHTML = ''; 
       images.forEach((src, index) => {
         const img = document.createElement('img');
         img.src = src;
-        img.style.height = '100px'; // Set a fixed height for all images
+        img.style.height = '100px'; 
         img.style.width = 'auto';
         img.setAttribute('data-index', index);
         img.addEventListener('click', () => openModal(index, false));
@@ -42,10 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(modal);
     modal.appendChild(modalContent);
   
-    let currentIndex = 0; // Index of the current image in the slideshow
+    let currentIndex = 0; 
     let slideshowInterval;
   
-    // Open modal function
     function openModal(index, isSlideshow) {
       currentIndex = index;
       updateModalImage(isSlideshow);
@@ -55,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   
-    // Update modal image function
     function updateModalImage(isSlideshow) {
       modalContent.innerHTML = '';
       const closeSpan = document.createElement('span');
@@ -82,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
       modalContent.appendChild(toggleButton);
     }
   
-    // Close modal function
     function closeModal() {
       modal.style.display = 'none';
       if (slideshowInterval) {
@@ -115,14 +112,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   
-    // Shuffle button
     const shuffleButton = document.createElement('button');
     shuffleButton.textContent = 'Shuffle';
     shuffleButton.className = 'button-56';
     shuffleButton.onclick = shuffleImages;
     document.body.appendChild(shuffleButton);
 
-    // Add the gallery to modal view button
     const galleryViewButton = document.createElement('button');
     galleryViewButton.textContent = 'Gallery View';
     galleryViewButton.addEventListener('click', () => openModal(currentIndex, false));
