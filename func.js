@@ -1,10 +1,6 @@
 let mySound;
 let isPlaying = false;
 let backgroundImage = 'background.webp'; 
-let drawingCanvas = null; // Variable to keep track of the canvas element
-let drawButton; 
-let points = []; 
-
 
 function preload() {
   soundFormats('mp3', 'ogg');
@@ -26,31 +22,21 @@ function setup() {
 
   document.body.style.position = 'relative'; 
   toggleBtn.style('position', 'absolute');
-  toggleBtn.style('bottom', '-180px'); 
+  toggleBtn.style('bottom', '-145px'); 
   toggleBtn.style('left', '20px');
 
   playButton.style('position', 'absolute');
-  playButton.style('bottom', '-140px'); 
+  playButton.style('bottom', '-185px'); 
   playButton.style('left', '20px'); 
 
-  // drawButton = createButton('Suffle');
-  // drawButton.class('button-56');
-  // drawButton.mousePressed(toggleDrawingCanvas);
-  
-  // drawButton.style('position', 'absolute');
-  // drawButton.style('bottom', '-140px');
-  // drawButton.style('left', '20px');
 }
 
 function toggleBackground() {
   backgroundImage = (backgroundImage === 'back1.jpg') ? 'day.jpg' : 'back1.jpg';
   document.body.style.backgroundImage = `url('assets/${backgroundImage}')`;
 
-  // Get the button by its ID
   const toggleBtn = document.getElementById('toggle-background-btn');
-  
-  // Update the button text
-  if (toggleBtn.innerHTML === 'Go to Sleep') {
+    if (toggleBtn.innerHTML === 'Go to Sleep') {
     toggleBtn.innerHTML = 'Wake Up';
   } else {
     toggleBtn.innerHTML = 'Go to Sleep';
