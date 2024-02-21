@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const gallery = document.getElementById('gallery');
-    const images = [
+    let images = [
       'assets/dog1.jpg',
       'assets/dog2.webp',
       'assets/dog3.jpeg',
@@ -11,18 +11,33 @@ document.addEventListener('DOMContentLoaded', () => {
       'assets/dog8.jpeg'
     ];
   
-    // Populate gallery with images
-    images.forEach((src, index) => {
-      const img = document.createElement('img');
-      img.src = src;
-      img.style.height = '100px'; // Set a fixed height for all images
-      img.style.width = 'auto';
-      img.setAttribute('data-index', index);
-      img.addEventListener('click', () => openModal(index, false));
-      gallery.appendChild(img);
-    });
+    // Shuffle the images
+    function shuffleImages() {
+      for (let i = images.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [images[i], images[j]] = [images[j], images[i]];
+      }
+      populateGallery();
+    }
   
-    // Modal view
+    // Populate gallery with images
+    function populateGallery() {
+      gallery.innerHTML = ''; // Clear the gallery first
+      images.forEach((src, index) => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.style.height = '100px'; // Set a fixed height for all images
+        img.style.width = 'auto';
+        img.setAttribute('data-index', index);
+        img.addEventListener('click', () => openModal(index, false));
+        gallery.appendChild(img);
+      });
+    }
+  
+    // Call populateGallery to display images initially
+    populateGallery();
+  
+    // Modal view setup
     const modal = document.createElement('div');
     modal.className = 'modal';
     const modalContent = document.createElement('div');
@@ -33,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentIndex = 0; // Index of the current image in the slideshow
     let slideshowInterval;
   
+    // Open modal function
     function openModal(index, isSlideshow) {
       currentIndex = index;
       updateModalImage(isSlideshow);
@@ -42,37 +58,34 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   
+    // Update modal image function
     function updateModalImage(isSlideshow) {
-      // Clear existing modal content
       modalContent.innerHTML = '';
-  
-      // Re-create close button
       const closeSpan = document.createElement('span');
       closeSpan.innerHTML = '&times;';
       closeSpan.className = 'close';
       closeSpan.onclick = () => closeModal();
       modalContent.appendChild(closeSpan);
-  
-      // Create and add new image element
+    
       const img = document.createElement('img');
       img.src = images[currentIndex];
       img.style.cssText = isSlideshow ? 'width:100%' : 'max-width:500px; max-height:500px;';
       modalContent.appendChild(img);
   
-      // Create and add toggle view button
       const toggleButton = document.createElement('button');
       toggleButton.id = 'toggle-view';
       toggleButton.textContent = isSlideshow ? 'Stop Slideshow' : 'Start Slideshow';
-      toggleButton.addEventListener('click', () => {
+      toggleButton.onclick = () => {
         if (isSlideshow) {
           stopSlideshow();
         } else {
           openModal(currentIndex, true);
         }
-      });
+      };
       modalContent.appendChild(toggleButton);
     }
   
+    // Close modal function
     function closeModal() {
       modal.style.display = 'none';
       if (slideshowInterval) {
@@ -80,20 +93,22 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   
+    // Start slideshow function
     function startSlideshow() {
       slideshowInterval = setInterval(() => {
         currentIndex = (currentIndex + 1) % images.length;
         updateModalImage(true);
-      }, 3000); // Change image every 3 seconds
+      }, 3000);
     }
   
+    // Stop slideshow function
     function stopSlideshow() {
       clearInterval(slideshowInterval);
-      slideshowInterval = null; // Ensure to clear the interval ID
-      openModal(currentIndex, false); // Open modal without slideshow
+      slideshowInterval = null;
+      openModal(currentIndex, false);
     }
   
-    // Add keyboard navigation
+    // Keyboard navigation function
     document.addEventListener('keydown', (event) => {
       if (modal.style.display === 'block') {
         if (event.key === 'ArrowRight') {
@@ -106,28 +121,36 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   
+    // Shuffle button
+    const shuffleButton = document.createElement('button');
+    shuffleButton.textContent = 'Shuffle';
+    shuffleButton.className = 'button-56';
+    shuffleButton.onclick = shuffleImages;
+    document.body.appendChild(shuffleButton);
+
     // Add the gallery to modal view button
     const galleryViewButton = document.createElement('button');
     galleryViewButton.textContent = 'Gallery View';
     galleryViewButton.addEventListener('click', () => openModal(currentIndex, false));
-    // galleryViewButton.class('button-56');
     galleryViewButton.className = 'button-56';
-
     document.body.appendChild(galleryViewButton);
-  
-    // Add the slideshow view button
+
     const slideshowViewButton = document.createElement('button');
     slideshowViewButton.textContent = 'Slideshow View';
     slideshowViewButton.addEventListener('click', () => openModal(currentIndex, true));
     slideshowViewButton.className = 'button-56';
     document.body.appendChild(slideshowViewButton);
-    
+
     const buttonContainer = document.createElement('div');
     buttonContainer.className = 'button-container';
     document.body.appendChild(buttonContainer);
     buttonContainer.appendChild(galleryViewButton);
     buttonContainer.appendChild(slideshowViewButton);
+    buttonContainer.appendChild(shuffleButton);
 
+  
+    // Your existing code from preload and setup functions
+    // Make sure these functions are defined or remove these calls if not needed
     preload();
     setup();
   });
